@@ -15,14 +15,6 @@ const myOverrides: TLUiOverrides = {
 		}
 		return actions
 	},
-	contextMenu(editor, contextMenu, { actions }) {
-         // creating a new menu item linked to 'export-shape-IDs' action
-        const exportShapeIDsMenuItem = menuItem(actions['export-shape-IDs']);
-
-        // adding the new menu item to the context
-		contextMenu.unshift(exportShapeIDsMenuItem)
-		return contextMenu
-	},
 	menu(editor, menu, { actions }) {
 		// using the findMenuItem helper
 		const fileMenu = findMenuItem(menu, ['menu', 'file'])
