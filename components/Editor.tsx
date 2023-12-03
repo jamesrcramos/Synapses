@@ -1,32 +1,3 @@
-// import { Tldraw } from '@tldraw/tldraw'
-// // tools?: WithDefaultHelpers<NonNullable<TLUiToolsProviderProps['overrides']>>
-
-// const myOverrides: TLUiOverrides = {
-// 	tools(editor, tools) {
-// 		// Create a tool item in the ui's context.
-// 		tools.card = {
-// 			id: 'card',
-// 			icon: 'color',
-// 			label: 'tools.card',
-// 			kbd: 'c',
-// 			readonlyOk: false,
-// 			onSelect: () => {
-// 				// Whatever you want to happen when the tool is selected
-// 				editor.setCurrentTool('card')
-// 			},
-// 		}
-// 		return tools
-// 	},
-// }
-
-// export default function Editor() {
-// 	return (
-// 		<div className="tldraw__editor">
-// 			<Tldraw />
-// 		</div>
-// 	)
-// }
-
 import { Tldraw, TLUiOverrides, menuItem, findMenuItem, TLUiTranslationKey } from '@tldraw/tldraw'
 
 
