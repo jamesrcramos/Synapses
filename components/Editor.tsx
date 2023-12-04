@@ -1,16 +1,40 @@
-import { Tldraw, TLUiOverrides, menuItem, findMenuItem, TLUiTranslationKey } from '@tldraw/tldraw'
+import { Tldraw, TLUiOverrides, menuItem, findMenuItem, TLUiTranslationKey} from '@tldraw/tldraw'
 
 
 const myOverrides: TLUiOverrides = {
     actions(editor, actions) {
-		// Create a new action or replace an existing one
 		actions['export-shape-IDs'] = {
 			id: 'export-shape-IDs',
 			label: 'Export Shape IDs' as unknown as TLUiTranslationKey,
 			readonlyOk: true,
 			kbd: '$u',
 			onSelect(source: any) {
-				window.alert('My new action just happened!')
+				const shapeIDs = editor.currentPageShapeIds
+				const shapeIDsArray = Array.from(shapeIDs)
+                
+                fetch('http://localhost:5000/extract_ids', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ shapeIDsArray }),
+            })             
+            .then(response => response.blob())
+            .then(blob => {
+                // creating a new URL for the blob
+				const url = window.URL.createObjectURL(blob);
+				// creating a new anchor element
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'ids.json'; // setting the file name for download
+				document.body.appendChild(a); // appending the anchor to the body
+				a.click(); // triggering a click on the anchor
+				window.URL.revokeObjectURL(url); // cleaning up the URL
+				document.body.removeChild(a); // removing the anchor from the body
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 			},
 		}
 		return actions
